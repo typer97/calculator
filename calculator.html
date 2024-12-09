@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casio-Style Calculator</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e0e0e0;
+        }
+
+        .calculator {
+            max-width: 350px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            color: white;
+        }
+
+        .calc-display {
+            height: 80px;
+            font-size: 2rem;
+            text-align: right;
+            padding: 10px;
+            background-color: #000;
+            color: #0f0;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            width: 100%;
+            height: 70px;
+            font-size: 1.5rem;
+            border-radius: 10px;
+            border: none;
+            margin: 5px 0;
+        }
+
+        .btn-light {
+            background-color: #999;
+            color: #000;
+        }
+
+        .btn-operation {
+            background-color: #ff9500;
+            color: #fff;
+        }
+
+        .btn-equals {
+            background-color: #0a84ff;
+            color: white;
+        }
+
+        .btn-zero {
+            width: 100%;
+            height: 70px;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="calculator">
+        <div class="calc-display" id="display">0</div>
+        <div class="row">
+            <div class="col-3">
+                <button class="btn btn-light" onclick="clearDisplay()">C</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-light" onclick="deleteLast()">DEL</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-light" onclick="appendOperator('%')">%</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-operation" onclick="appendOperator('/')">÷</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <button class="btn btn-light" onclick="appendNumber('7')">7</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-light" onclick="appendNumber('8')">8</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-light" onclick="appendNumber('9')">9</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-operation" onclick="appendOperator('*')">×</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <button class="btn btn-light" onclick="appendNumber('4')">4</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-light" onclick="appendNumber('5')">5</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-light" onclick="appendNumber('6')">6</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-operation" onclick="appendOperator('-')">−</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <button class="btn btn-light" onclick="appendNumber('1')">1</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-light" onclick="appendNumber('2')">2</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-light" onclick="appendNumber('3')">3</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-operation" onclick="appendOperator('+')">+</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <button class="btn btn-light btn-zero" onclick="appendNumber('0')">0</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-light" onclick="appendNumber('.')">.</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-equals" onclick="calculateResult()">=</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let display = document.getElementById('display');
+
+    function appendNumber(number) {
+        if (display.innerHTML === '0') {
+            display.innerHTML = number;
+        } else {
+            display.innerHTML += number;
+        }
+    }
+
+    function appendOperator(operator) {
+        display.innerHTML += operator;
+    }
+
+    function clearDisplay() {
+        display.innerHTML = '0';
+    }
+
+    function deleteLast() {
+        display.innerHTML = display.innerHTML.slice(0, -1);
+        if (display.innerHTML === '') {
+            display.innerHTML = '0';
+        }
+    }
+
+    function calculateResult() {
+        try {
+            display.innerHTML = eval(display.innerHTML.replace('×', '*').replace('÷', '/'));
+        } catch {
+            display.innerHTML = 'Error';
+        }
+    }
+</script>
+
+</body>
+</html>
